@@ -9,7 +9,7 @@ import Foundation
 
 
 class NetworkManager {
-    var apiKey = ""
+    var apiKey = "16299a77117a52964fe0bf27b8e3137f"
     
     func getNews(title: String, pageSize: Int = 5, completion: @escaping (News)->Void) {
         guard let url = URL(string: "https://gnews.io/api/v4/top-headlines?category=\(title)&apikey=\(apiKey)&lang=ru&country=ru") else { return }

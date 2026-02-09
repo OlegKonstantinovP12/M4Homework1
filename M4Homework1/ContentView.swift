@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var viewModel = ContentViewModel()
+    @State var position = ScrollPosition()
     var body: some View {
         ZStack(alignment: .top) {
             ScrollView(.horizontal) {
@@ -48,6 +49,7 @@ struct ContentView: View {
                 .padding(.horizontal, 20)
                 
             }
+            .scrollPosition($position)
             .padding(.top, 40)
             .onAppear {
                 viewModel.getNews(title: NewsCategory.general.rawValue)
@@ -66,6 +68,9 @@ extension ContentView {
                 ForEach(NewsCategory.allCases, id: \.self) { item in
                     Button {
                         viewModel.getNews(title: item.rawValue)
+                        withAnimation {
+                            position.scrollTo(edge: .top)                            
+                        }
                     } label: {
                         Text(item.showTitle(news: item))
                             .frame(maxWidth: .infinity)
